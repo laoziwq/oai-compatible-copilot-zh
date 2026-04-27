@@ -25,7 +25,7 @@ export async function prepareLanguageModelChatInformation(
 ): Promise<LanguageModelChatInformation[]> {
 	// Check for user-configured models first
 	const config = vscode.workspace.getConfiguration();
-	const userModels = normalizeUserModels(config.get<unknown>("oaicopilot.models", []));
+	const userModels = normalizeUserModels(config.get<unknown>("oaicopilotzh.models", []));
 
 	let infos: LanguageModelChatInformation[];
 	if (userModels && userModels.length > 0) {
@@ -69,7 +69,7 @@ export async function prepareLanguageModelChatInformation(
 		}
 
 		const config = vscode.workspace.getConfiguration();
-		const BASE_URL = config.get<string>("oaicopilot.baseUrl", "");
+		const BASE_URL = config.get<string>("oaicopilotzh.baseUrl", "");
 		if (!BASE_URL || !BASE_URL.startsWith("http")) {
 			throw new Error(`Invalid base URL configuration.`);
 		}
@@ -197,7 +197,7 @@ export async function fetchModels(
  */
 async function ensureApiKey(silent: boolean, secrets: vscode.SecretStorage): Promise<string | undefined> {
 	// Fall back to generic API key
-	let apiKey = await secrets.get("oaicopilot.apiKey");
+	let apiKey = await secrets.get("oaicopilotzh.apiKey");
 
 	if (!apiKey && !silent) {
 		const entered = await vscode.window.showInputBox({
@@ -208,7 +208,7 @@ async function ensureApiKey(silent: boolean, secrets: vscode.SecretStorage): Pro
 		});
 		if (entered && entered.trim()) {
 			apiKey = entered.trim();
-			await secrets.store("oaicopilot.apiKey", apiKey);
+			await secrets.store("oaicopilotzh.apiKey", apiKey);
 		}
 	}
 	return apiKey;

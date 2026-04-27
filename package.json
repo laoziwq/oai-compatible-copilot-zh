@@ -52,35 +52,35 @@
 	"contributes": {
 		"languageModelChatProviders": [
 			{
-				"vendor": "oaicopilot",
-				"displayName": "OAI 兼容",
-				"managementCommand": "oaicopilot.setApikey"
+				"vendor": "oaicopilotzh",
+				"displayName": "OAI 兼容(中文)",
+				"managementCommand": "oaicopilotzh.setApikey"
 			}
 		],
 		"commands": [
 			{
-				"command": "oaicopilot.setApikey",
+				"command": "oaicopilotzh.setApikey",
 				"category": "OAICopilot",
 				"title": "设置 OAI 兼容 API 密钥"
 			},
 			{
-				"command": "oaicopilot.setProviderApikey",
+				"command": "oaicopilotzh.setProviderApikey",
 				"category": "OAICopilot",
 				"title": "设置 OAI 兼容多提供器 API 密钥"
 			},
 			{
-				"command": "oaicopilot.openConfig",
+				"command": "oaicopilotzh.openConfig",
 				"category": "OAICopilot",
 				"title": "打开配置界面"
 			},
 			{
-				"command": "oaicopilot.generateGitCommitMessage",
+				"command": "oaicopilotzh.generateGitCommitMessage",
 				"title": "使用 OAICopilot 生成提交消息",
 				"category": "OAICopilot",
 				"icon": "$(wand)"
 			},
 			{
-				"command": "oaicopilot.abortGitCommitMessage",
+				"command": "oaicopilotzh.abortGitCommitMessage",
 				"title": "停止使用 OAICopilot 生成提交消息",
 				"category": "OAICopilot",
 				"icon": "$(debug-stop)"
@@ -89,31 +89,31 @@
 		"menus": {
 			"scm/title": [
 				{
-					"command": "oaicopilot.generateGitCommitMessage",
+					"command": "oaicopilotzh.generateGitCommitMessage",
 					"group": "navigation",
-					"when": "config.git.enabled && scmProvider == git && !oaicopilot.isGeneratingCommit"
+					"when": "config.git.enabled && scmProvider == git && !oaicopilotzh.isGeneratingCommit"
 				},
 				{
-					"command": "oaicopilot.abortGitCommitMessage",
+					"command": "oaicopilotzh.abortGitCommitMessage",
 					"group": "navigation",
-					"when": "config.git.enabled && scmProvider == git && oaicopilot.isGeneratingCommit"
+					"when": "config.git.enabled && scmProvider == git && oaicopilotzh.isGeneratingCommit"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "oaicopilot.generateGitCommitMessage",
-					"when": "config.git.enabled && !oaicopilot.isGeneratingCommit"
+					"command": "oaicopilotzh.generateGitCommitMessage",
+					"when": "config.git.enabled && !oaicopilotzh.isGeneratingCommit"
 				},
 				{
-					"command": "oaicopilot.abortGitCommitMessage",
-					"when": "config.git.enabled && oaicopilot.isGeneratingCommit"
+					"command": "oaicopilotzh.abortGitCommitMessage",
+					"when": "config.git.enabled && oaicopilotzh.isGeneratingCommit"
 				}
 			]
 		},
 		"configuration": {
 			"title": "OAI 兼容 Copilot",
 			"properties": {
-				"oaicopilot.logLevel": {
+				"oaicopilotzh.logLevel": {
 					"type": "string",
 					"default": "off",
 					"enum": [
@@ -123,14 +123,14 @@
 						"warn",
 						"error"
 					],
-					"description": "调试日志级别。日志以 JSON 行格式写入 ~/.copilot/oaicopilot/logs/。默认为 'off'（不记录日志）。"
+					"description": "调试日志级别。日志以 JSON 行格式写入 ~/.copilot/oaicopilotzh/logs/。默认为 'off'（不记录日志）。"
 				},
-				"oaicopilot.baseUrl": {
+				"oaicopilotzh.baseUrl": {
 					"type": "string",
 					"default": "https://router.huggingface.co/v1",
 					"description": "OpenAI 兼容推理 API 的基础 URL。默认值为 Hugging Face。"
 				},
-				"oaicopilot.models": {
+				"oaicopilotzh.models": {
 					"type": "array",
 					"default": [],
 					"items": {
@@ -166,7 +166,7 @@
 							},
 							"baseUrl": {
 								"type": "string",
-								"description": "模型提供器的基础 URL。如未提供，将使用全局 oaicopilot.baseUrl。"
+								"description": "模型提供器的基础 URL。如未提供，将使用全局 oaicopilotzh.baseUrl。"
 							},
 							"context_length": {
 								"type": "number",
@@ -357,7 +357,7 @@
 								"type": "number",
 								"default": 0,
 								"minimum": 0,
-								"description": "连续请求之间模型特定的延迟（毫秒）。如未指定，回退到全局 oaicopilot.delay 配置。"
+								"description": "连续请求之间模型特定的延迟（毫秒）。如未指定，回退到全局 oaicopilotzh.delay 配置。"
 							}
 						},
 						"required": [
@@ -383,7 +383,7 @@
 					},
 					"description": "首选模型列表。如提供，将直接使用这些模型而不是从 API 获取。"
 				},
-				"oaicopilot.retry": {
+				"oaicopilotzh.retry": {
 					"type": "object",
 					"default": {
 						"enabled": true,
@@ -419,13 +419,13 @@
 					},
 					"description": "处理 [429, 500, 502, 503, 504] 等 API 错误的重试配置。"
 				},
-				"oaicopilot.delay": {
+				"oaicopilotzh.delay": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,
 					"description": "连续请求之间的固定延迟（毫秒）。默认为 0（无延迟）。"
 				},
-				"oaicopilot.commitLanguage": {
+				"oaicopilotzh.commitLanguage": {
 					"type": "string",
 					"default": "English",
 					"enum": [
@@ -446,12 +446,12 @@
 					],
 					"description": "生成的 Git 提交消息的语言。默认为英语。"
 				},
-				"oaicopilot.commitMessagePrompt": {
+				"oaicopilotzh.commitMessagePrompt": {
 					"type": "string",
 					"default": "",
 					"description": "提交消息生成的自定义系统提示。如未提供，使用默认提示。"
 				},
-				"oaicopilot.readFileLines": {
+				"oaicopilotzh.readFileLines": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,
