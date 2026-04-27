@@ -1,8 +1,8 @@
 {
 	"name": "oai-compatible-copilot",
-	"publisher": "johnny-zhao",
+	"publisher": "laoziwq",
 	"displayName": "Copilot 的 OAI 兼容提供器",
-	"description": "将 OpenAI/Ollama/Anthropic/Gemini API 提供器集成到 GitHub Copilot Chat 的扩展",
+	"description": "将 OpenAI/Ollama/Anthropic/Gemini API 提供器集成到 GitHub Copilot Chat 的扩展（中文汉化版）",
 	"icon": "assets/logo.png",
 	"keywords": [
 		"ai",
@@ -19,11 +19,13 @@
 		"openai-compatible",
 		"openai-responses",
 		"git-commit",
-		"thinking"
+		"thinking",
+		"chinese",
+		"中文"
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/JohnnyZ93/oai-compatible-copilot"
+		"url": "https://github.com/laoziwq/oai-compatible-copilot-zh"
 	},
 	"version": "0.3.6",
 	"engines": {
@@ -35,13 +37,13 @@
 	],
 	"badges": [
 		{
-			"url": "https://img.shields.io/github/stars/JohnnyZ93/oai-compatible-copilot?style=social",
-			"description": "在 Github 上给 oai-compatible-copilot 点星",
-			"href": "https://github.com/JohnnyZ93/oai-compatible-copilot"
+			"url": "https://img.shields.io/github/stars/laoziwq/oai-compatible-copilot-zh?style=social",
+			"description": "在 Github 上给 oai-compatible-copilot-zh 点星",
+			"href": "https://github.com/laoziwq/oai-compatible-copilot-zh"
 		}
 	],
 	"bugs": {
-		"url": "https://github.com/JohnnyZ93/oai-compatible-copilot/issues"
+		"url": "https://github.com/laoziwq/oai-compatible-copilot-zh/issues"
 	},
 	"license": "MIT",
 	"enabledApiProposals": [
