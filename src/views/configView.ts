@@ -105,7 +105,7 @@ export class ConfigViewPanel {
 
 		const panel = vscode.window.createWebviewPanel(
 			"oaicopilot.config",
-			"OAICopilot Configuration",
+			"OAICopilot 配置",
 			column || vscode.ViewColumn.One,
 			{
 				enableScripts: true,
@@ -133,7 +133,7 @@ export class ConfigViewPanel {
 					vscode.window.showErrorMessage(
 						err instanceof Error
 							? err.message
-							: `Unexpected error while handling configuration message[${message.type}].`
+							: `处理配置消息时发生意外错误[${message.type}]。`
 					);
 				});
 			},
@@ -231,14 +231,14 @@ export class ConfigViewPanel {
 			confirmed = true;
 		} else {
 			// For confirmation requests, show Yes/No dialog
-			confirmed = await vscode.window.showInformationMessage(message, { modal: true }, "Yes", "No");
+			confirmed = await vscode.window.showInformationMessage(message, { modal: true }, "是", "否");
 		}
 
 		// Send response back to webview
 		this.panel.webview.postMessage({
 			type: "confirmResponse",
 			id: id,
-			confirmed: action === "showInfo" ? true : confirmed === "Yes",
+			confirmed: action === "showInfo" ? true : confirmed === "是",
 		} as OutgoingMessage);
 	}
 
@@ -336,7 +336,7 @@ export class ConfigViewPanel {
 		}
 
 		vscode.window.showInformationMessage(
-			"OAI Compatible base URL, Delay, Retry and API Key have been saved to global settings."
+			"OAI 兼容基础 URL、延迟、重试和 API 密钥已保存到全局设置。"
 		);
 		// Send refresh signal to frontend
 		await this.sendInit();
@@ -378,7 +378,7 @@ export class ConfigViewPanel {
 	) {
 		const trimmedProvider = provider.trim();
 		if (!trimmedProvider) {
-			vscode.window.showErrorMessage("Provider ID is required.");
+			vscode.window.showErrorMessage("提供器 ID 是必需的。");
 			return;
 		}
 		const normalizedProvider = trimmedProvider.toLowerCase();
@@ -408,7 +408,7 @@ export class ConfigViewPanel {
 		}
 
 		await config.update("oaicopilot.models", models, vscode.ConfigurationTarget.Global);
-		vscode.window.showInformationMessage(`Provider ${provider} has been added.`);
+		vscode.window.showInformationMessage(`提供器 ${provider} 已添加。`);
 		// Send refresh signal to frontend
 		await this.sendInit();
 	}
@@ -422,7 +422,7 @@ export class ConfigViewPanel {
 	) {
 		const trimmedProvider = provider.trim();
 		if (!trimmedProvider) {
-			vscode.window.showErrorMessage("Provider ID is required.");
+			vscode.window.showErrorMessage("提供器 ID 是必需的。");
 			return;
 		}
 		const normalizedProvider = trimmedProvider.toLowerCase();
@@ -457,7 +457,7 @@ export class ConfigViewPanel {
 		});
 
 		await config.update("oaicopilot.models", updatedModels, vscode.ConfigurationTarget.Global);
-		vscode.window.showInformationMessage(`Provider ${provider} has been updated.`);
+		vscode.window.showInformationMessage(`提供器 ${provider} 已更新。`);
 		// Send refresh signal to frontend
 		await this.sendInit();
 	}
@@ -465,7 +465,7 @@ export class ConfigViewPanel {
 	private async deleteProvider(provider: string) {
 		const trimmedProvider = provider.trim();
 		if (!trimmedProvider) {
-			vscode.window.showErrorMessage("Provider ID is required.");
+			vscode.window.showErrorMessage("提供器 ID 是必需的。");
 			return;
 		}
 		const normalizedProvider = trimmedProvider.toLowerCase();
@@ -481,7 +481,7 @@ export class ConfigViewPanel {
 		const filteredModels = models.filter((model) => model.owned_by !== trimmedProvider);
 
 		await config.update("oaicopilot.models", filteredModels, vscode.ConfigurationTarget.Global);
-		vscode.window.showInformationMessage(`Provider ${provider} and all its models have been deleted.`);
+		vscode.window.showInformationMessage(`提供器 ${provider} 及其所有模型已删除。`);
 		// Send refresh signal to frontend
 		await this.sendInit();
 	}
@@ -496,14 +496,14 @@ export class ConfigViewPanel {
 				m.id === model.id && ((model.configId && m.configId === model.configId) || (!model.configId && !m.configId))
 		);
 		if (existingIndex !== -1) {
-			vscode.window.showErrorMessage(`Model ${model.id}${model.configId ? "::" + model.configId : ""} already exists.`);
+			vscode.window.showErrorMessage(`模型 ${model.id}${model.configId ? "::" + model.configId : ""} 已存在。`);
 			return;
 		}
 
 		models.push(model);
 		await config.update("oaicopilot.models", models, vscode.ConfigurationTarget.Global);
 		vscode.window.showInformationMessage(
-			`Model ${model.id}${model.configId ? "::" + model.configId : ""} has been added.`
+			`模型 ${model.id}${model.configId ? "::" + model.configId : ""} 已添加。`
 		);
 		// Send refresh signal to frontend
 		await this.sendInit();
@@ -531,7 +531,7 @@ export class ConfigViewPanel {
 
 		await config.update("oaicopilot.models", updatedModels, vscode.ConfigurationTarget.Global);
 		vscode.window.showInformationMessage(
-			`Model ${model.id}${model.configId ? "::" + model.configId : ""} has been updated.`
+			`模型 ${model.id}${model.configId ? "::" + model.configId : ""} 已更新。`
 		);
 		// Send refresh signal to frontend
 		await this.sendInit();
@@ -551,7 +551,7 @@ export class ConfigViewPanel {
 		});
 
 		await config.update("oaicopilot.models", filteredModels, vscode.ConfigurationTarget.Global);
-		vscode.window.showInformationMessage(`Model ${modelId} has been deleted.`);
+		vscode.window.showInformationMessage(`模型 ${modelId} 已删除。`);
 		// Send refresh signal to frontend
 		await this.sendInit();
 	}
@@ -605,22 +605,22 @@ export class ConfigViewPanel {
 
 			const uri = await vscode.window.showSaveDialog({
 				defaultUri: vscode.Uri.file(`oaicopilot-config-${new Date().toISOString().split("T")[0]}.json`),
-				filters: { "JSON Files": ["json"] },
-				title: "Export OAICopilot Configuration",
+				filters: { "JSON 文件": ["json"] },
+				title: "导出 OAICopilot 配置",
 			});
 
 			if (!uri) {
-				vscode.window.showInformationMessage("Export configuration cancelled.");
+				vscode.window.showInformationMessage("导出配置已取消。");
 				return;
 			}
 
 			const encoder = new TextEncoder();
 			await vscode.workspace.fs.writeFile(uri, encoder.encode(JSON.stringify(exportData, null, 2)));
 
-			vscode.window.showInformationMessage(`Configuration exported to ${uri.fsPath}`);
+			vscode.window.showInformationMessage(`配置已导出到 ${uri.fsPath}`);
 		} catch (error) {
-			const errorMessage = error instanceof Error ? error.message : "Unknown error";
-			vscode.window.showErrorMessage(`Failed to export configuration: ${errorMessage}`);
+			const errorMessage = error instanceof Error ? error.message : "未知错误";
+			vscode.window.showErrorMessage(`导出配置失败：${errorMessage}`);
 		}
 	}
 
@@ -630,12 +630,12 @@ export class ConfigViewPanel {
 				canSelectFiles: true,
 				canSelectFolders: false,
 				canSelectMany: false,
-				filters: { "JSON Files": ["json"] },
-				title: "Import OAICopilot Configuration",
+				filters: { "JSON 文件": ["json"] },
+				title: "导入 OAICopilot 配置",
 			});
 
 			if (!uri || uri.length === 0) {
-				vscode.window.showInformationMessage("Import configuration cancelled.");
+				vscode.window.showInformationMessage("导入配置已取消。");
 				return;
 			}
 
@@ -645,7 +645,7 @@ export class ConfigViewPanel {
 			const importData = JSON.parse(jsonContent) as ExportConfig;
 
 			if (!Array.isArray(importData.models)) {
-				throw new Error("Invalid configuration file: models must be an array");
+				throw new Error("无效的配置文件：models 必须是数组");
 			}
 
 			const config = vscode.workspace.getConfiguration();
@@ -673,11 +673,11 @@ export class ConfigViewPanel {
 				}
 			}
 
-			vscode.window.showInformationMessage("Configuration imported successfully.");
+			vscode.window.showInformationMessage("配置导入成功。");
 			await this.sendInit();
 		} catch (error) {
-			const errorMessage = error instanceof Error ? error.message : "Unknown error";
-			vscode.window.showErrorMessage(`Failed to import configuration: ${errorMessage}`);
+			const errorMessage = error instanceof Error ? error.message : "未知错误";
+			vscode.window.showErrorMessage(`导入配置失败：${errorMessage}`);
 		}
 	}
 }

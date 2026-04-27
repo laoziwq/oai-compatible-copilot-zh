@@ -10,27 +10,27 @@ import { logger } from "../logger";
 import type { HFModelItem } from "../types";
 
 /**
- * Git commit message generator module
+ * Git 提交消息生成器模块
  */
 
 let commitGenerationAbortController: AbortController | undefined;
 
 const DEFAULT_PROMPT = {
 	system:
-		"You are a helpful assistant that generates informative git commit messages based on git diffs output. Skip preamble and remove all backticks surrounding the commit message.\nBased on the provided git diff, generate a conventional format commit message.",
-	user: "Notes from developer (ignore if not relevant): {{USER_CURRENT_INPUT}}",
+		"你是一个有用的助手，根据 git diff 输出生成信息丰富的 git 提交消息。跳过前言并移除提交消息周围的所有反引号。\n根据提供的 git diff，生成规范格式的提交消息。",
+	user: "开发者的备注（如不相关请忽略）：{{USER_CURRENT_INPUT}}",
 };
 
 export async function generateCommitMsg(secrets: vscode.SecretStorage, scm?: vscode.SourceControl) {
 	try {
 		const gitExtension = vscode.extensions.getExtension("vscode.git")?.exports;
 		if (!gitExtension) {
-			throw new Error("Git extension not found");
+			throw new Error("未找到 Git 扩展");
 		}
 
 		const git = gitExtension.getAPI(1);
 		if (git.repositories.length === 0) {
-			throw new Error("No Git repositories available");
+			throw new Error("没有可用的 Git 仓库");
 		}
 
 		// If scm is provided, then the user specified one repository by clicking the "Source Control" menu button
@@ -38,7 +38,7 @@ export async function generateCommitMsg(secrets: vscode.SecretStorage, scm?: vsc
 			const repository = git.getRepository(scm.rootUri);
 
 			if (!repository) {
-				throw new Error("Repository not found for provided SCM");
+				throw new Error("未找到提供的 SCM 对应的仓库");
 			}
 
 			await generateCommitMsgForRepository(secrets, repository);
@@ -48,7 +48,7 @@ export async function generateCommitMsg(secrets: vscode.SecretStorage, scm?: vsc
 		await orchestrateWorkspaceCommitMsgGeneration(secrets, git.repositories);
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`[Commit Generation Failed] ${errorMessage}`);
+		vscode.window.showErrorMessage(`[提交消息生成失败] ${errorMessage}`);
 	}
 }
 
@@ -56,7 +56,7 @@ async function orchestrateWorkspaceCommitMsgGeneration(secrets: vscode.SecretSto
 	const reposWithChanges = await filterForReposWithChanges(repos);
 
 	if (reposWithChanges.length === 0) {
-		vscode.window.showInformationMessage(`No changes found in any workspace repositories.`);
+		vscode.window.showInformationMessage(`工作区仓库中未发现更改。`);
 		return;
 	}
 
@@ -80,7 +80,7 @@ async function orchestrateWorkspaceCommitMsgGeneration(secrets: vscode.SecretSto
 			try {
 				await generateCommitMsgForRepository(secrets, repo);
 			} catch (error) {
-				console.error(`Failed to generate commit message for ${repo.rootUri.fsPath}:`, error);
+				console.error(`无法为 ${repo.rootUri.fsPath} 生成提交消息:`, error);
 			}
 		}
 	} else {
@@ -115,13 +115,13 @@ async function promptRepoSelection(repos: any[]) {
 	}));
 
 	repoItems.unshift({
-		label: "$(git-commit) Generate for all repositories with changes",
-		description: `Generate commit messages for ${repos.length} repositories`,
+		label: "$(git-commit) 为所有有更改的仓库生成",
+		description: `为 ${repos.length} 个仓库生成提交消息`,
 		repo: null as any,
 	});
 
 	return await vscode.window.showQuickPick(repoItems, {
-		placeHolder: "Select repository for commit message generation",
+		placeHolder: "选择要生成提交消息的仓库",
 	});
 }
 
@@ -131,13 +131,13 @@ async function generateCommitMsgForRepository(secrets: vscode.SecretStorage, rep
 	const gitDiff = await getGitDiff(repoPath);
 
 	if (!gitDiff) {
-		throw new Error(`No changes in repository ${repoPath.split(path.sep).pop() || "repository"} for commit message`);
+		throw new Error(`仓库 ${repoPath.split(path.sep).pop() || "repository"} 中没有可生成提交消息的更改`);
 	}
 
 	await vscode.window.withProgress(
 		{
 			location: vscode.ProgressLocation.SourceControl,
-			title: `Generating commit message for ${repoPath.split(path.sep).pop() || "repository"}...`,
+			title: `正在为 ${repoPath.split(path.sep).pop() || "仓库"} 生成提交消息...`,
 			cancellable: true,
 		},
 		() => performCommitMsgGeneration(secrets, gitDiff, inputBox)
@@ -166,7 +166,7 @@ async function performCommitMsgGeneration(secrets: vscode.SecretStorage, gitDiff
 		}
 
 		const truncatedDiff =
-			gitDiff.length > 5000 ? gitDiff.substring(0, 5000) + "\n\n[Diff truncated due to size]" : gitDiff;
+			gitDiff.length > 5000 ? gitDiff.substring(0, 5000) + "\n\n[Diff 因大小被截断]" : gitDiff;
 		prompts.push(truncatedDiff);
 		const prompt = prompts.join("\n\n");
 
@@ -178,7 +178,7 @@ async function performCommitMsgGeneration(secrets: vscode.SecretStorage, gitDiff
 
 		if (commitModels.length === 0) {
 			throw new Error(
-				"No models configured for commit message generation. Please set 'useForCommitGeneration' to true for at least one model in your configuration."
+				"没有配置用于提交消息生成的模型。请在配置中将至少一个模型的 'useForCommitGeneration' 设置为 true。"
 			);
 		}
 
@@ -190,20 +190,20 @@ async function performCommitMsgGeneration(secrets: vscode.SecretStorage, gitDiff
 		// Get API key for the model's provider
 		const apiKey = await ensureApiKey(secrets, selectedModel.owned_by);
 		if (!apiKey) {
-			throw new Error("OAI Compatible API key not found");
+			throw new Error("未找到 OAI 兼容 API 密钥");
 		}
 
 		// Get base URL for the model
 		const baseUrl = selectedModel.baseUrl || config.get<string>("oaicopilot.baseUrl", "");
 		if (!baseUrl || !baseUrl.startsWith("http")) {
-			throw new Error(`Invalid base URL configuration.`);
+			throw new Error(`无效的基础 URL 配置。`);
 		}
 
 		// Get commit language configuration
 		const commitLanguage = config.get<string>("oaicopilot.commitLanguage", "English");
 
 		// Create a system prompt with language instruction
-		const systemPrompt = PROMPT.system + ` Generate commit message in ${commitLanguage}.`;
+		const systemPrompt = PROMPT.system + ` 用${commitLanguage}生成提交消息。`;
 
 		// Create a message for the API
 		const messages = [{ role: "user", content: prompt }];
@@ -238,14 +238,14 @@ async function performCommitMsgGeneration(secrets: vscode.SecretStorage, gitDiff
 		inputBox.value = removeThinkTags(inputBox.value);
 
 		if (!inputBox.value) {
-			throw new Error("empty API response");
+			throw new Error("API 响应为空");
 		}
 
 		logger.info("commit.end", { modelId, durationMs: Date.now() - startTime });
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		logger.error("commit.error", { modelId: modelId ?? "unknown", error: errorMessage });
-		vscode.window.showErrorMessage(`Failed to generate commit message: ${errorMessage}`);
+		vscode.window.showErrorMessage(`生成提交消息失败：${errorMessage}`);
 	} finally {
 		vscode.commands.executeCommand("setContext", "oaicopilot.isGeneratingCommit", false);
 	}
@@ -265,7 +265,7 @@ function extractCommitMessage(str: string): string {
 	// Remove any markdown formatting or extra text
 	return str
 		.trim()
-		.replace(/^```[^\n]*\n?|```$/g, "")
+		.replace(/^```\n?\n?|```$/g, "")
 		.trim();
 }
 

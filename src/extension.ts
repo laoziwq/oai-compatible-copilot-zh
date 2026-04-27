@@ -25,8 +25,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand("oaicopilot.setApikey", async () => {
 			const existing = await context.secrets.get("oaicopilot.apiKey");
 			const apiKey = await vscode.window.showInputBox({
-				title: "OAI Compatible Provider API Key",
-				prompt: existing ? "Update your OAI Compatible API key" : "Enter your OAI Compatible API key",
+				title: "OAI 兼容提供器 API 密钥",
+				prompt: existing ? "更新您的 OAI 兼容 API 密钥" : "输入您的 OAI 兼容 API 密钥",
 				ignoreFocusOut: true,
 				password: true,
 				value: existing ?? "",
@@ -36,11 +36,11 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 			if (!apiKey.trim()) {
 				await context.secrets.delete("oaicopilot.apiKey");
-				vscode.window.showInformationMessage("OAI Compatible API key cleared.");
+				vscode.window.showInformationMessage("OAI 兼容 API 密钥已清除。");
 				return;
 			}
 			await context.secrets.store("oaicopilot.apiKey", apiKey.trim());
-			vscode.window.showInformationMessage("OAI Compatible API key saved.");
+			vscode.window.showInformationMessage("OAI 兼容 API 密钥已保存。");
 		})
 	);
 
@@ -58,15 +58,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 			if (providers.length === 0) {
 				vscode.window.showErrorMessage(
-					"No providers found in oaicopilot.models configuration. Please configure models first."
+					"在 oaicopilot.models 配置中未找到提供器。请先配置模型。"
 				);
 				return;
 			}
 
 			// Let user select provider
 			const selectedProvider = await vscode.window.showQuickPick(providers, {
-				title: "Select Provider",
-				placeHolder: "Select a provider to configure API key",
+				title: "选择提供器",
+				placeHolder: "选择要配置 API 密钥的提供器",
 			});
 
 			if (!selectedProvider) {
@@ -79,8 +79,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 			// Prompt for API key
 			const apiKey = await vscode.window.showInputBox({
-				title: `OAI Compatible API Key for ${selectedProvider}`,
-				prompt: existing ? `Update API key for ${selectedProvider}` : `Enter API key for ${selectedProvider}`,
+				title: `${selectedProvider} 的 OAI 兼容 API 密钥`,
+				prompt: existing ? `更新 ${selectedProvider} 的 API 密钥` : `输入 ${selectedProvider} 的 API 密钥`,
 				ignoreFocusOut: true,
 				password: true,
 				value: existing ?? "",
@@ -92,12 +92,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 			if (!apiKey.trim()) {
 				await context.secrets.delete(providerKey);
-				vscode.window.showInformationMessage(`API key for ${selectedProvider} cleared.`);
+				vscode.window.showInformationMessage(`${selectedProvider} 的 API 密钥已清除。`);
 				return;
 			}
 
 			await context.secrets.store(providerKey, apiKey.trim());
-			vscode.window.showInformationMessage(`API key for ${selectedProvider} saved.`);
+			vscode.window.showInformationMessage(`${selectedProvider} 的 API 密钥已保存。`);
 		})
 	);
 

@@ -4,124 +4,123 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Security-Policy" content="%CSP_SOURCE%" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>OAI Copilot Configuration</title>
+		<title>OAI Copilot 配置</title>
 		<link rel="stylesheet" href="%CSS_URI%" />
 	</head>
 	<body>
 		<section id="globalConfigSection">
 			<div class="section-header">
-				<h2>Global Configuration</h2>
+				<h2>全局配置</h2>
 				<div class="section-actions">
-					<button id="exportConfig" class="secondary">Export</button>
-					<button id="importConfig" class="secondary">Import</button>
-					<button id="refreshGlobalConfig" class="secondary">Refresh</button>
+					<button id="exportConfig" class="secondary">导出</button>
+					<button id="importConfig" class="secondary">导入</button>
+					<button id="refreshGlobalConfig" class="secondary">刷新</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="field">
-					<label for="baseUrl">Global Base URL</label>
-					<div class="field-description">The base URL for the Openai Compatible Inference API.</div>
+					<label for="baseUrl">全局基础 URL</label>
+					<div class="field-description">OpenAI 兼容推理 API 的基础 URL。</div>
 					<input id="baseUrl" type="text" placeholder="https://api.openai.com/v1" />
 				</div>
 				<div class="field">
-					<label for="apiKey">Global API Key</label>
-					<div class="field-description">The API Key for Authentication.</div>
+					<label for="apiKey">全局 API 密钥</label>
+					<div class="field-description">用于身份验证的 API 密钥。</div>
 					<input id="apiKey" type="password" placeholder="sk-..." />
 				</div>
 				<div class="field">
-					<label for="delay">Delay (ms)</label>
-					<div class="field-description">Fixed delay in milliseconds between consecutive requests.</div>
+					<label for="delay">延迟（毫秒）</label>
+					<div class="field-description">连续请求之间的固定延迟（毫秒）。</div>
 					<input id="delay" type="number" min="0" placeholder="0" />
 				</div>
 				<div class="field">
-					<label for="readFileLines">Read File Lines</label>
+					<label for="readFileLines">读取文件行数</label>
 					<div class="field-description">
-						Number of lines to read when using `read_file` tool. Large lines may cost more tokens. Default is 0, let
-						model decide lines.
+						使用 `read_file` 工具时读取的行数。大行数可能消耗更多 token。默认为 0，让模型决定行数。
 					</div>
 					<input id="readFileLines" type="number" min="0" placeholder="0" />
 				</div>
 			</div>
 			<div class="retry-config">
-				<h3>Retry Configuration</h3>
+				<h3>重试配置</h3>
 				<div class="row">
 					<div class="field">
-						<label for="retryEnabled">Enable Retry</label>
-						<div class="field-description">Enable retry mechanism for api errors.</div>
+						<label for="retryEnabled">启用重试</label>
+						<div class="field-description">启用 API 错误的重试机制。</div>
 						<input id="retryEnabled" type="checkbox" />
 					</div>
 					<div class="field">
-						<label for="maxAttempts">Max Attempts</label>
-						<div class="field-description">Maximum number of retry attempts.</div>
+						<label for="maxAttempts">最大尝试次数</label>
+						<div class="field-description">最大重试次数。</div>
 						<input id="maxAttempts" type="number" min="1" placeholder="3" />
 					</div>
 					<div class="field">
-						<label for="intervalMs">Retry Interval (ms)</label>
-						<div class="field-description">Interval between retry attempts in milliseconds.</div>
+						<label for="intervalMs">重试间隔（毫秒）</label>
+						<div class="field-description">重试之间的间隔时间（毫秒）。</div>
 						<input id="intervalMs" type="number" min="1" placeholder="1000" />
 					</div>
 					<div class="field">
-						<label for="statusCodes">Retry Status Codes (comma separated)</label>
-						<div class="field-description">Additional HTTP status codes that will be merged.</div>
+						<label for="statusCodes">重试状态码（逗号分隔）</label>
+						<div class="field-description">将合并的额外 HTTP 状态码。</div>
 						<input id="statusCodes" type="text" placeholder="429,500,502,503,504" />
 					</div>
 				</div>
 			</div>
 			<div class="retry-config">
-				<h3>Git Commit Message</h3>
+				<h3>Git 提交消息</h3>
 				<div class="row">
 					<div class="field">
-						<label for="commitModel">Git Commit Model</label>
-						<div class="field-description">Select the model to be used for Git commit message generation.</div>
+						<label for="commitModel">Git 提交模型</label>
+						<div class="field-description">选择用于 Git 提交消息生成的模型。</div>
 						<select id="commitModel" class="model-input">
-							<option value="">None</option>
+							<option value="">无</option>
 						</select>
 					</div>
 					<div class="field">
-						<label for="commitLanguage">Commit Language</label>
-						<div class="field-description">Language for generated Git commit messages.</div>
+						<label for="commitLanguage">提交语言</label>
+						<div class="field-description">生成的 Git 提交消息的语言。</div>
 						<select id="commitLanguage" class="model-input">
-							<option value="English">English</option>
-							<option value="French">French</option>
-							<option value="Italian">Italian</option>
-							<option value="German">German</option>
-							<option value="Spanish">Spanish</option>
-							<option value="Russian">Russian</option>
-							<option value="Chinese (Simplified)">Chinese (Simplified)</option>
-							<option value="Chinese (Traditional)">Chinese (Traditional)</option>
-							<option value="Japanese">Japanese</option>
-							<option value="Korean">Korean</option>
-							<option value="Czech">Czech</option>
-							<option value="Portuguese (Brazil)">Portuguese (Brazil)</option>
-							<option value="Turkish">Turkish</option>
-							<option value="Polish">Polish</option>
+							<option value="English">英语</option>
+							<option value="French">法语</option>
+							<option value="Italian">意大利语</option>
+							<option value="German">德语</option>
+							<option value="Spanish">西班牙语</option>
+							<option value="Russian">俄语</option>
+							<option value="Chinese (Simplified)">简体中文</option>
+							<option value="Chinese (Traditional)">繁体中文</option>
+							<option value="Japanese">日语</option>
+							<option value="Korean">韩语</option>
+							<option value="Czech">捷克语</option>
+							<option value="Portuguese (Brazil)">葡萄牙语（巴西）</option>
+							<option value="Turkish">土耳其语</option>
+							<option value="Polish">波兰语</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="block-gap">
-				<button id="saveBase">Save Global Configuration</button>
+				<button id="saveBase">保存全局配置</button>
 			</div>
 		</section>
 
 		<section id="providerManagementSection">
 			<div class="section-header">
-				<h2>Provider Management</h2>
+				<h2>提供器管理</h2>
 				<div class="section-actions">
-					<button id="addProvider">Add Provider</button>
-					<button id="refreshProviders" class="secondary">Refresh</button>
+					<button id="addProvider">添加提供器</button>
+					<button id="refreshProviders" class="secondary">刷新</button>
 				</div>
 			</div>
 			<div class="table-container">
 				<table id="providerTable">
 					<thead>
 						<tr>
-							<th>Provider ID</th>
-							<th>Base URL</th>
-							<th>API Key</th>
-							<th>API Mode</th>
-							<th>Custom Headers (JSON)</th>
-							<th>Actions</th>
+							<th>提供器 ID</th>
+							<th>基础 URL</th>
+							<th>API 密钥</th>
+							<th>API 模式</th>
+							<th>自定义头（JSON）</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody id="providerTableBody">
@@ -133,27 +132,27 @@
 
 		<section id="modelManagementSection">
 			<div class="section-header">
-				<h2>Model Management</h2>
+				<h2>模型管理</h2>
 				<div class="section-actions">
-					<button id="addModel">Add Model</button>
-					<button id="refreshModels" class="secondary">Refresh</button>
+					<button id="addModel">添加模型</button>
+					<button id="refreshModels" class="secondary">刷新</button>
 				</div>
 			</div>
 			<div class="table-container">
 				<table id="modelTable">
 					<thead>
 						<tr>
-							<th>Model ID</th>
-							<th>Provider ID</th>
-							<th>Display Name</th>
-							<th>Config ID</th>
-							<th>Context Length</th>
-							<th>Max Tokens</th>
-							<th>Supports Vision</th>
-							<th>Temperature</th>
+							<th>模型 ID</th>
+							<th>提供器 ID</th>
+							<th>显示名称</th>
+							<th>配置 ID</th>
+							<th>上下文长度</th>
+							<th>最大 Token</th>
+							<th>支持视觉</th>
+							<th>温度</th>
 							<th>TopP</th>
-							<th>Delay (ms)</th>
-							<th>Actions</th>
+							<th>延迟（毫秒）</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody id="modelTableBody">
@@ -163,31 +162,31 @@
 			</div>
 			<!-- Model Form Section -->
 			<div id="modelFormSection" style="display: none; margin-top: 20px">
-				<h3 id="modelFormTitle">Add New Model</h3>
+				<h3 id="modelFormTitle">添加新模型</h3>
 				<div class="form-container">
 					<div class="row">
 						<div class="field">
-							<label for="modelProvider">Provider ID *</label>
-							<div class="field-description">Model provider.</div>
+							<label for="modelProvider">提供器 ID *</label>
+							<div class="field-description">模型提供器。</div>
 							<select id="modelProvider" class="model-input" required>
-								<option value="">Select Provider</option>
+								<option value="">选择提供器</option>
 							</select>
 						</div>
 						<div class="field">
-							<label for="modelVision">Supports Vision</label>
-							<div class="field-description">Model support vision.</div>
+							<label for="modelVision">支持视觉</label>
+							<div class="field-description">模型是否支持视觉。</div>
 							<select id="modelVision" class="model-input">
-								<option value="">Default (False)</option>
-								<option value="true">True</option>
-								<option value="false">False</option>
+								<option value="">默认（否）</option>
+								<option value="true">是</option>
+								<option value="false">否</option>
 							</select>
 						</div>
 						<div class="field">
-							<label for="modelApiMode">API Mode</label>
+							<label for="modelApiMode">API 模式</label>
 							<div class="field-description">
-								'openai' for API (/chat/completions), 'openai-responses' for API (/responses), 'ollama' for API
-								(/api/chat), 'anthropic' for API (/v1/messages), 'gemini' for API
-								(/v1beta/models/{model}:streamGenerateContent?alt=sse).
+								'openai' 用于 API (/chat/completions)，'openai-responses' 用于 API (/responses)，'ollama' 用于 API
+								(/api/chat)，'anthropic' 用于 API (/v1/messages)，'gemini' 用于 API
+								(/v1beta/models/{model}:streamGenerateContent?alt=sse)。
 							</div>
 							<select id="modelApiMode" class="model-input">
 								<option value="openai">OpenAI</option>
@@ -200,12 +199,12 @@
 					</div>
 					<div class="row">
 						<div class="field">
-							<label for="modelIdInput">Model ID *</label>
-							<div class="field-description">Model ID (e.g., gpt-4, claude-3).</div>
+							<label for="modelIdInput">模型 ID *</label>
+							<div class="field-description">模型 ID（例如 gpt-4、claude-3）。</div>
 							<div class="input-with-dropdown">
-								<input id="modelIdInput" type="text" class="model-input" placeholder="e.g., gpt-4, claude-3" required />
+								<input id="modelIdInput" type="text" class="model-input" placeholder="例如：gpt-4, claude-3" required />
 								<div id="modelIdDropdown" class="model-input-dropdown">
-									<div class="dropdown-header">Select Model</div>
+									<div class="dropdown-header">选择模型</div>
 									<div class="dropdown-content">
 										<!-- Model options will be inserted here -->
 									</div>
@@ -213,42 +212,42 @@
 							</div>
 						</div>
 						<div class="field">
-							<label for="modelConfigId">Config ID</label>
+							<label for="modelConfigId">配置 ID</label>
 							<div class="field-description">
-								Configuration ID for this model. Allows defining the same model with different settings (e.g.
-								'glm-4.6::thinking', 'glm-4.6::no-thinking').
+								此模型的配置 ID。允许使用不同设置定义同一模型（例如
+								'glm-4.6::thinking'、'glm-4.6::no-thinking'）。
 							</div>
-							<input id="modelConfigId" type="text" class="model-input" placeholder="e.g., thinking, no-thinking" />
+							<input id="modelConfigId" type="text" class="model-input" placeholder="例如：thinking, no-thinking" />
 						</div>
 						<div class="field">
-							<label for="modelBaseUrl">Base URL</label>
-							<div class="field-description">Base URL for the model provider.</div>
+							<label for="modelBaseUrl">基础 URL</label>
+							<div class="field-description">模型提供器的基础 URL。</div>
 							<input id="modelBaseUrl" type="text" class="model-input" placeholder="https://api.openai.com/v1" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="field">
-							<label for="modelContextLength">Context Length</label>
-							<div class="field-description">Maximum context length.</div>
+							<label for="modelContextLength">上下文长度</label>
+							<div class="field-description">最大上下文长度。</div>
 							<input id="modelContextLength" type="number" class="model-input" placeholder="128000" min="1" />
 						</div>
 						<div class="field">
-							<label for="modelMaxTokens">Max Tokens</label>
-							<div class="field-description">Maximum number of tokens to generate (range: [1, context_length)).</div>
+							<label for="modelMaxTokens">最大 Token</label>
+							<div class="field-description">生成的最大 token 数（范围：[1, context_length]）。</div>
 							<input id="modelMaxTokens" type="number" class="model-input" placeholder="4096" min="1" />
 						</div>
 						<div class="field">
-							<label for="modelMaxCompletionTokens">Max Completion Tokens</label>
+							<label for="modelMaxCompletionTokens">最大完成 Token</label>
 							<div class="field-description">
-								Maximum output tokens (OpenAI new standard - takes precedence over Max Tokens if both are set).
+								最大输出 token（OpenAI 新标准 - 如同时设置，优先于最大 Token）。
 							</div>
 							<input id="modelMaxCompletionTokens" type="number" class="model-input" placeholder="4096" min="1" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="field">
-							<label for="modelTemperature">Temperature</label>
-							<div class="field-description">Sampling temperature (range: [0, 2]). Default is 0.</div>
+							<label for="modelTemperature">温度</label>
+							<div class="field-description">采样温度（范围：[0, 2]）。默认为 0。</div>
 							<input
 								id="modelTemperature"
 								type="number"
@@ -261,150 +260,149 @@
 						</div>
 						<div class="field">
 							<label for="modelTopP">Top P</label>
-							<div class="field-description">Top-p sampling value (range: (0, 1]).</div>
+							<div class="field-description">Top-p 采样值（范围：(0, 1]）。</div>
 							<input id="modelTopP" type="number" class="model-input" placeholder="1" min="0" max="1" step="0.01" />
 						</div>
 						<div class="field">
-							<label for="modelDelay">Delay (ms)</label>
-							<div class="field-description">Model-specific delay in milliseconds between consecutive requests.</div>
+							<label for="modelDelay">延迟（毫秒）</label>
+							<div class="field-description">连续请求之间模型特定的延迟（毫秒）。</div>
 							<input id="modelDelay" type="number" class="model-input" placeholder="0" min="0" />
 						</div>
 					</div>
 					<!-- Advanced Settings Section -->
 					<div class="advanced-settings">
-						<button type="button" id="toggleAdvancedSettings" class="secondary">Show Advanced Settings</button>
+						<button type="button" id="toggleAdvancedSettings" class="secondary">显示高级设置</button>
 						<div id="advancedSettingsContent" style="display: none; margin-top: 15px">
 							<div class="row">
 								<div class="field">
-									<label for="modelDisplayName">Display Name</label>
+									<label for="modelDisplayName">显示名称</label>
 									<div class="field-description">
-										Display name for the model that will be shown in the Copilot interface.
+										模型的显示名称，将显示在 Copilot 界面中。
 									</div>
-									<input id="modelDisplayName" type="text" class="model-input" placeholder="e.g., GPT-4 Turbo" />
+									<input id="modelDisplayName" type="text" class="model-input" placeholder="例如：GPT-4 Turbo" />
 								</div>
 								<div class="field">
-									<label for="modelFamily">Model Family</label>
+									<label for="modelFamily">模型系列</label>
 									<div class="field-description">
-										Model family (e.g., 'gpt-4', 'claude-3', 'gemini'). Enables model-specific optimizations and
-										behaviors.
+										模型系列（例如 'gpt-4'、'claude-3'、'gemini'）。启用模型特定的优化和行为。
 									</div>
-									<input id="modelFamily" type="text" class="model-input" placeholder="e.g., gpt-4, claude-3" />
+									<input id="modelFamily" type="text" class="model-input" placeholder="例如：gpt-4, claude-3" />
 								</div>
 								<div class="field">
 									<label for="modelTopK">Top K</label>
-									<div class="field-description">Top-k sampling value (range: [1, Infinity)).</div>
+									<div class="field-description">Top-k 采样值（范围：[1, 无穷大)）。</div>
 									<input id="modelTopK" type="number" class="model-input" min="1" />
 								</div>
 								<div class="field">
 									<label for="modelMinP">Min P</label>
-									<div class="field-description">Minimum probability threshold (range: [0, 1]).</div>
+									<div class="field-description">最小概率阈值（范围：[0, 1]）。</div>
 									<input id="modelMinP" type="number" class="model-input" min="0" max="1" step="0.01" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="field">
-									<label for="modelThinkingBudget">Thinking Budget</label>
-									<div class="field-description">Maximum number of tokens for chain-of-thought output.</div>
+									<label for="modelThinkingBudget">思考预算</label>
+									<div class="field-description">思维链输出的最大 token 数。</div>
 									<input id="modelThinkingBudget" type="number" class="model-input" min="128" />
 								</div>
 								<div class="field">
-									<label for="modelFrequencyPenalty">Frequency Penalty</label>
-									<div class="field-description">Frequency penalty (range: [-2, 2]).</div>
+									<label for="modelFrequencyPenalty">频率惩罚</label>
+									<div class="field-description">频率惩罚（范围：[-2, 2]）。</div>
 									<input id="modelFrequencyPenalty" type="number" class="model-input" min="-2" max="2" step="0.01" />
 								</div>
 								<div class="field">
-									<label for="modelPresencePenalty">Presence Penalty</label>
-									<div class="field-description">Presence penalty (range: [-2, 2]).</div>
+									<label for="modelPresencePenalty">存在惩罚</label>
+									<div class="field-description">存在惩罚（范围：[-2, 2]）。</div>
 									<input id="modelPresencePenalty" type="number" class="model-input" min="-2" max="2" step="0.01" />
 								</div>
 								<div class="field">
-									<label for="modelRepetitionPenalty">Repetition Penalty</label>
-									<div class="field-description">Repetition penalty (range: (0, 2]).</div>
+									<label for="modelRepetitionPenalty">重复惩罚</label>
+									<div class="field-description">重复惩罚（范围：(0, 2]）。</div>
 									<input id="modelRepetitionPenalty" type="number" class="model-input" min="0" step="0.01" />
 								</div>
 							</div>
 							<!-- Thinking Configuration -->
 							<div class="row">
 								<div class="field">
-									<label for="modelIncludeReasoning">Include Reasoning</label>
-									<div class="field-description">Include reasoning_content in assistant messages sent to the API.</div>
+									<label for="modelIncludeReasoning">包含推理</label>
+									<div class="field-description">在发送到 API 的助手消息中包含 reasoning_content。</div>
 									<select id="modelIncludeReasoning" class="model-input">
-										<option value="">Default (False)</option>
-										<option value="true">True</option>
-										<option value="false">False</option>
+										<option value="">默认（否）</option>
+										<option value="true">是</option>
+										<option value="false">否</option>
 									</select>
 								</div>
 								<div class="field">
-									<label for="modelThinkingType">Thinking Type</label>
-									<div class="field-description">Include "thinking.type" in request body.</div>
+									<label for="modelThinkingType">思考类型</label>
+									<div class="field-description">在请求体中包含 "thinking.type"。</div>
 									<select id="modelThinkingType" class="model-input">
 										<option value=""></option>
-										<option value="enabled">Enabled</option>
-										<option value="disabled">Disabled</option>
+										<option value="enabled">启用</option>
+										<option value="disabled">禁用</option>
 									</select>
 								</div>
 								<div class="field">
-									<label for="modelEnableThinking">Enable Thinking</label>
-									<div class="field-description">Include "enable_thinking" in request body.</div>
+									<label for="modelEnableThinking">启用思考</label>
+									<div class="field-description">在请求体中包含 "enable_thinking"。</div>
 									<select id="modelEnableThinking" class="model-input">
 										<option value=""></option>
-										<option value="true">True</option>
-										<option value="false">False</option>
+										<option value="true">是</option>
+										<option value="false">否</option>
 									</select>
 								</div>
 								<div class="field">
-									<label for="modelReasoningEffort">Reasoning Effort (OpenAI)</label>
-									<div class="field-description">Include "reasoning_effort" in request body.</div>
+									<label for="modelReasoningEffort">推理努力（OpenAI）</label>
+									<div class="field-description">在请求体中包含 "reasoning_effort"。</div>
 									<select id="modelReasoningEffort" class="model-input">
 										<option value=""></option>
-										<option value="max">Max</option>
-										<option value="xhigh">XHigh</option>
-										<option value="high">High</option>
-										<option value="medium">Medium</option>
-										<option value="low">Low</option>
-										<option value="minimal">Minimal</option>
+										<option value="max">最大</option>
+										<option value="xhigh">超高</option>
+										<option value="high">高</option>
+										<option value="medium">中</option>
+										<option value="low">低</option>
+										<option value="minimal">最小</option>
 									</select>
 								</div>
 							</div>
 							<!-- Reasoning Configuration -->
 							<div class="retry-config">
-								<h3>Reasoning Configuration (OpenRouter)</h3>
+								<h3>推理配置（OpenRouter）</h3>
 								<div class="row">
 									<div class="field">
-										<label for="modelReasoningEnabled">Reasoning Enabled</label>
-										<div class="field-description">Enable reasoning params in request body.</div>
+										<label for="modelReasoningEnabled">启用推理</label>
+										<div class="field-description">在请求体中启用推理参数。</div>
 										<select id="modelReasoningEnabled" class="model-input">
 											<option value=""></option>
-											<option value="true">True</option>
-											<option value="false">False</option>
+											<option value="true">是</option>
+											<option value="false">否</option>
 										</select>
 									</div>
 									<div class="field">
-										<label for="modelReasoningEffortOR">Reasoning Effort</label>
-										<div class="field-description">Include "reasoning.effort" in request body.</div>
+										<label for="modelReasoningEffortOR">推理努力</label>
+										<div class="field-description">在请求体中包含 "reasoning.effort"。</div>
 										<select id="modelReasoningEffortOR" class="model-input">
 											<option value=""></option>
-											<option value="max">Max</option>
-											<option value="xhigh">XHigh</option>
-											<option value="high">High</option>
-											<option value="medium">Medium</option>
-											<option value="low">Low</option>
-											<option value="minimal">Minimal</option>
-											<option value="auto">Auto</option>
+											<option value="max">最大</option>
+											<option value="xhigh">超高</option>
+											<option value="high">高</option>
+											<option value="medium">中</option>
+											<option value="low">低</option>
+											<option value="minimal">最小</option>
+											<option value="auto">自动</option>
 										</select>
 									</div>
 									<div class="field">
-										<label for="modelReasoningExclude">Reasoning Exclude</label>
-										<div class="field-description">Include "reasoning.exclude" in request body.</div>
+										<label for="modelReasoningExclude">排除推理</label>
+										<div class="field-description">在请求体中包含 "reasoning.exclude"。</div>
 										<select id="modelReasoningExclude" class="model-input">
 											<option value=""></option>
-											<option value="true">True</option>
-											<option value="false">False</option>
+											<option value="true">是</option>
+											<option value="false">否</option>
 										</select>
 									</div>
 									<div class="field">
-										<label for="modelReasoningMaxTokens">Reasoning Max Tokens</label>
-										<div class="field-description">Include "reasoning.max_tokens" in request body.</div>
+										<label for="modelReasoningMaxTokens">推理最大 Token</label>
+										<div class="field-description">在请求体中包含 "reasoning.max_tokens"。</div>
 										<input id="modelReasoningMaxTokens" type="number" class="model-input" min="1" />
 									</div>
 								</div>
@@ -412,8 +410,8 @@
 							<!-- Custom Headers and Extra Parameters -->
 							<div class="row">
 								<div class="field">
-									<label for="modelHeaders">Custom Headers (JSON)</label>
-									<div class="field-description">Custom HTTP headers to be sent with every request to this model.</div>
+									<label for="modelHeaders">自定义头（JSON）</label>
+									<div class="field-description">随每个请求发送到此模型的自定义 HTTP 头。</div>
 									<textarea
 										id="modelHeaders"
 										class="model-input"
@@ -422,9 +420,9 @@
 									></textarea>
 								</div>
 								<div class="field">
-									<label for="modelExtra">Extra Parameters (JSON)</label>
+									<label for="modelExtra">额外参数（JSON）</label>
 									<div class="field-description">
-										Extra request body parameters to be sent with every request to this model.
+										随每个请求发送到此模型的额外请求体参数。
 									</div>
 									<textarea
 										id="modelExtra"
@@ -438,8 +436,8 @@
 					</div>
 					<div id="modelError" class="error-message" style="display: none"></div>
 					<div class="actions">
-						<button id="saveModel" class="primary">Save Model</button>
-						<button id="cancelModel" class="secondary">Cancel</button>
+						<button id="saveModel" class="primary">保存模型</button>
+						<button id="cancelModel" class="secondary">取消</button>
 					</div>
 				</div>
 			</div>
